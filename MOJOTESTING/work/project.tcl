@@ -1,11 +1,11 @@
-set projDir "C:/Users/1001721/Documents/mojo/light bulbs/work/planAhead"
-set projName "light bulbs"
+set projDir "G:/MOJOTESTING/work/planAhead"
+set projName "MOJOTESTING"
 set topName top
 set device xc6slx9-2tqg144
 if {[file exists "$projDir/$projName"]} { file delete -force "$projDir/$projName" }
 create_project $projName "$projDir/$projName" -part $device
 set_property design_mode RTL [get_filesets sources_1]
-set verilogSources [list "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/mojo_top_0.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/alu_1.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/counter_2.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/reset_conditioner_3.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/register_4.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/adder_5.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/compare_6.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/boolean_7.v" "C:/Users/1001721/Documents/mojo/light bulbs/work/verilog/shifter_8.v"]
+set verilogSources [list "G:/MOJOTESTING/work/verilog/mojo_top_0.v" "G:/MOJOTESTING/work/verilog/alu_1.v" "G:/MOJOTESTING/work/verilog/counter_2.v" "G:/MOJOTESTING/work/verilog/counter_3.v" "G:/MOJOTESTING/work/verilog/counter_4.v" "G:/MOJOTESTING/work/verilog/counter_5.v" "G:/MOJOTESTING/work/verilog/counter_6.v" "G:/MOJOTESTING/work/verilog/reset_conditioner_7.v" "G:/MOJOTESTING/work/verilog/register_8.v" "G:/MOJOTESTING/work/verilog/adder_9.v" "G:/MOJOTESTING/work/verilog/compare_10.v" "G:/MOJOTESTING/work/verilog/boolean_11.v" "G:/MOJOTESTING/work/verilog/shifter_12.v"]
 import_files -fileset [get_filesets sources_1] -force -norecurse $verilogSources
 set ucfSources [list  "C:/Program\ Files/Mojo\ IDE/library/components/io_shield.ucf" "C:/Program\ Files/Mojo\ IDE/library/components/mojo.ucf"]
 import_files -fileset [get_filesets constrs_1] -force -norecurse $ucfSources

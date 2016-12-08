@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="trce" Owner="1001721" Host="ISTDLAB05-PC" Pid="5972">
-    </Process>
-</ProcessHandle>
