@@ -1,0 +1,29 @@
+module boolean ( //performs AND, OR, XOR, "A" LDR functions
+//inputs from ALU
+    input alufn[6],
+    input a[8],  
+    input b[8],  
+//output to ALU
+    output boole[8]
+  ) {
+var i; //variable index for each bit of boole output
+var x; //variable values of a and b input selectors to select alufn value
+  always {
+    for (i=0; i<8; i++){ //for each bit of boole
+      x = b[i]*2 +a[i]; 
+    case(x){ //a and b input selectors 
+      b00:
+      boole[i]=alufn[0]; 
+      b01:
+      boole[i] = alufn[1];
+      b10:
+      boole[i] = alufn[2]; 
+      b11:
+      boole[i]= alufn[3]; 
+      default:
+      boole[i]=alufn[0];
+        
+  }
+}
+}
+}

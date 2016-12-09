@@ -1,0 +1,42 @@
+module adder ( //performs addition, subtration, multiplication, modulo functions
+//inputs from the ALU
+    input alufn[6],
+    input a[8],  
+    input b[8],  
+//outputs to the ALU   
+    output sum1[8],
+    output z,
+    output v, 
+    output n,
+    output overadd //to show addition overflow
+  ) {
+sig sum[9]; //9-bit output
+sig ssum[9]; //subtraction sum used to calculate z,v,n
+  
+  always {
+    
+    case(alufn[1:0]){ //alufn value controlling add or subtract operator
+    b00:
+      ssum = a-b;
+      sum = a+b; //addition
+    b01:
+      ssum = a-b;
+      sum = a-b; //subtraction
+    b10:
+      ssum = a-b;
+      sum = a*b; // multiplication
+    b11:
+      ssum = a-b;
+      sum = a-(a/b*b); // modulo
+    default:
+      ssum=a-b;
+      sum = a+b;
+  }
+    //assigning values to outputs
+    sum1 = sum[7:0]; 
+    v = (a[7] & ~b[7] & (~ssum[7])) | ((~a[7])&(b[7])&ssum[7]);
+    overadd = (a[7] & b[7] & (~sum[7])) | ((~a[7])&(~b[7])&sum[7]);
+    n = ssum[7];
+    z = ~|ssum;
+}
+}
