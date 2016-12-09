@@ -1,0 +1,2 @@
+NET "button"    LOC = P51  | IOSTANDARD = LVTTL | PULLUP;
+NET "reset_btn" LOC = P50  | IOSTANDARD = LVTTL | PULLUP;
