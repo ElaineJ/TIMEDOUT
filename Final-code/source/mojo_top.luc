@@ -23,14 +23,14 @@ module mojo_top (
   sig rst;                  // reset signal
   sig sclk;
   alu alu1;
-  sig mybutton;
+  sig mybutton; //button to stop the shifiting of led bulbs
    
     
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     .rst(rst){
-      counter slowclk(#SIZE(1),#DIV(25));
+      counter slowclk(#SIZE(1),#DIV(25));  //created different clock speeds
       counter slow2clk(#SIZE(1),#DIV(23));
       counter slow3clk(#SIZE(1),#DIV(22));
       counter slow4clk(#SIZE(1),#DIV(21));
@@ -50,12 +50,15 @@ module mojo_top (
   
     .rst(rst){
        register regs(#WIDTH(8));
+       registertarget regstarget(#WIDTH(8));
        fsm testshift ={START,SL1,SL2,SL3,SL4,SL5,CHECK2,CHECK3,CHECK4,CHECK5,BUTTON,END};
        
     }        
             
   }
   always {
+    regstarget.en = 0;
+    regstarget.data = 0;
     //sclk=slowclk.value;
     if (io_dip[0][0] ==1)
       sclk = slowclk.value;
@@ -127,19 +130,19 @@ module mojo_top (
     
     case(testshift.q){
       testshift.START:
-        regs.data=8b00000001;
+        regs.data=8b00000001; // starting stage
         regs.en=1;
         testshift.d=testshift.SL1;
         
       testshift.SL1:
         regs.en=1;
         sclk = slowclk.value;
-       if(regs.out==8b10000000){
+       if(regs.out==8b10000000){// when reached the end of the rows of light bulbs it will returned to the inital starting light bulbs
         regs.data=8b00000001;
         }
        if (mybutton){
         
-        testshift.d = testshift.BUTTON;
+        testshift.d = testshift.BUTTON; // when button is pressed, move to button state
         }
         
        testshift.SL2:
@@ -148,7 +151,7 @@ module mojo_top (
        if(regs.out==8b10000000){
         regs.data=8b00000001;
         }
-       if (mybutton){
+       if (mybutton){   //when button is pressed move to check2 state
         testshift.d = testshift.CHECK2;
         } 
        
@@ -158,7 +161,7 @@ module mojo_top (
        if(regs.out==8b10000000){
         regs.data=8b00000001;
         }
-       if (mybutton){
+       if (mybutton){    //when button is pressed moved to check3 state
         testshift.d = testshift.CHECK3;
         } 
         
@@ -168,7 +171,7 @@ module mojo_top (
        if(regs.out==8b10000000){
         regs.data=8b00000001;
         }
-       if (mybutton){
+       if (mybutton){    //when button is pressed moved to check4 state
         testshift.d = testshift.CHECK4;
         } 
        
@@ -178,7 +181,7 @@ module mojo_top (
        if(regs.out==8b10000000){
         regs.data=8b00000001;
         }
-       if (mybutton){
+       if (mybutton){    //when button is pressed moved to check5 state 
         testshift.d = testshift.CHECK5;
         } 
         
@@ -206,8 +209,10 @@ module mojo_top (
         }  
         */
       testshift.BUTTON:
+        alu1.alufn = 6b110011;//CMPEQ
+        alu1.b = 8b00100000;
         regs.en = 0;
-       if (regs.out == 8b00100000){         
+       if (alu1.alu == 8b00000001){      
         testshift.d = testshift.SL2;
         }  
        else{
