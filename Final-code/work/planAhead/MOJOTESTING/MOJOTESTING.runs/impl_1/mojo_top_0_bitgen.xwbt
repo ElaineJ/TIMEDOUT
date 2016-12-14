@@ -1,0 +1,8 @@
+INTSTYLE=pa
+INFILE=C:\Users\elainejomane\Desktop\sharan-mojotest\work\planAhead\MOJOTESTING\MOJOTESTING.runs\impl_1\mojo_top_0_routed.ncd
+OUTFILE=C:\Users\elainejomane\Desktop\sharan-mojotest\work\planAhead\MOJOTESTING\MOJOTESTING.runs\impl_1\mojo_top_0.bit
+FAMILY=Spartan6
+PART=xc6slx9-2tqg144
+WORKINGDIR=C:\Users\elainejomane\Desktop\sharan-mojotest\work\planAhead\MOJOTESTING\MOJOTESTING.runs\impl_1
+LICENSE=WebPack
+USER_INFO=211255517_0_0_870
